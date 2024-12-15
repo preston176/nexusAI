@@ -7,6 +7,7 @@ import { useDropzone } from "react-dropzone"
 function FileUploader() {
     const onDrop = useCallback((acceptedFiles: File[]) => {
         // Do sth with files
+        console.log(acceptedFiles)
     }, [])
     const { getRootProps, getInputProps, isDragActive, isFocused, isDragAccept } = useDropzone({ onDrop })
 
@@ -26,7 +27,7 @@ function FileUploader() {
                         ) : (
                             <>
                                 <CircleArrowDown className="h-20 w-20 animate-bounce" />
-                                <p>Drag 'n' drop files here or click to select files</p>
+                                <p>Drag &apos;n&apos; drop files here or click to select files</p>
                             </>
 
                         )
