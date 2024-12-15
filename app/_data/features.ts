@@ -1,3 +1,5 @@
+import { EyeIcon, GlobeIcon, ServerCogIcon, ZapIcon } from "lucide-react";
+
 export const features = [
     {
       name: "Store Your PDF Documents",
