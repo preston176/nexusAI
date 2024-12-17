@@ -18,11 +18,19 @@ import { auth } from "@clerk/nextjs/server";
 // Initialize Gemini Model
 // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 // const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-const model = new ChatOpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    modelName: "gpt-4o"
-});
+// ALTERNATIVE
+// const model = new ChatOpenAI({
+//     apiKey: process.env.OPENAI_API_KEY,
+//     modelName: "gpt-4o"
+// });
 
+
+const model = new ChatOpenAI({
+    azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
+    azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME,
+    azureOpenAIApiDeploymentName: "gpt-4o", // <-- Add your deployment name here
+    azureOpenAIApiVersion: "2024-02-01", // Use the correct API version
+  });
 
 export const indexName = "nexus";
 export async function generateDocs(docId:string) {
@@ -87,6 +95,7 @@ export async function generateEmbeddingsInPineconeVectorStore(docId:string) {
 
         // generate embeddings (numerical representations) for the split documents
         console.log("--Generating Embeddings for the split documents... ---");
+  
         const embeddings = new OpenAIEmbeddings();
 
         const index = await pineconeClient.index(indexName);
