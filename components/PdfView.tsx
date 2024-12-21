@@ -46,14 +46,14 @@ function PdfView({
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <div className="">
-                <div className="">
+            <div className="sticky top-0 z-50 bg-gray-100 rounded-b-lg">
+                <div className="max-w-6xl px-2 grid grid-cols-6 gap-2">
                     <Button
                         variant={"outline"}
                         disabled={pageNumber === 1}
                         onClick={() => {
                             if (pageNumber > 1) {
-                                setPageNumber(pageNumber - 1);
+                                setPageNumber(prevPage => prevPage - 1);
                             }
                         }}>
                         Previous
@@ -65,13 +65,39 @@ function PdfView({
                         variant={"outline"}
                         disabled={pageNumber === numPages}
                         onClick={() => {
-                            if (numPages){
+                            if (numPages) {
                                 if (pageNumber < numPages) {
-                                    setPageNumber(pageNumber + 1);
+                                    setPageNumber(prevPage => prevPage + 1);
                                 }
                             }
                         }}>
                         Next
+                    </Button>
+                    <Button
+                        variant={"outline"}
+                        onClick={() =>
+                            setRotation(prevRotation => (prevRotation + 90) % 360)
+                        }
+                    >
+                        {rotation}&deg;
+                        <RotateCw />
+                        {/* Zoom in out buttons */}
+                        <Button
+                            variant={"outline"}
+                            disabled={scale >= 1.5}
+                            onClick={() => setScale(prevScale => prevScale * 1.2)}
+                        >
+                            <ZoomInIcon />
+
+                        </Button>
+                        <Button
+                            variant={"outline"}
+                            disabled={scale <= 0.75}
+                            onClick={() => setScale(prevScale => prevScale / 1.2)}
+                        >
+                            <ZoomOutIcon />
+
+                        </Button>
                     </Button>
                 </div>
             </div>
