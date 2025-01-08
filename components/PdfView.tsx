@@ -81,23 +81,21 @@ function PdfView({
                     >
                         {rotation}&deg;
                         <RotateCw />
-                        {/* Zoom in out buttons */}
-                        <Button
-                            variant={"outline"}
-                            disabled={scale >= 1.5}
-                            onClick={() => setScale(prevScale => prevScale * 1.2)}
-                        >
-                            <ZoomInIcon />
-
-                        </Button>
-                        <Button
-                            variant={"outline"}
-                            disabled={scale <= 0.75}
-                            onClick={() => setScale(prevScale => prevScale / 1.2)}
-                        >
-                            <ZoomOutIcon />
-
-                        </Button>
+                    </Button>
+                    {/* Zoom in out buttons */}
+                    <Button
+                        variant={"outline"}
+                        disabled={scale >= 1.5}
+                        onClick={() => setScale(prevScale => prevScale * 1.2)}
+                    >
+                        <ZoomInIcon />
+                    </Button>
+                    <Button
+                        variant={"outline"}
+                        disabled={scale <= 0.75}
+                        onClick={() => setScale(prevScale => prevScale / 1.2)}
+                    >
+                        <ZoomOutIcon />
                     </Button>
                 </div>
             </div>
