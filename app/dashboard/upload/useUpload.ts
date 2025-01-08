@@ -5,7 +5,7 @@ import { db, storage } from "@/firebase";
 import { useUser } from "@clerk/nextjs";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {v4 as uuidv4} from "uuid";
 
@@ -25,7 +25,7 @@ function useUpload() {
 
     const {user} = useUser();
 
-    const router = useRouter();
+    // const router = useRouter();
 
     const handleUpload = async (file:File) => {
         if(!file || !user) return;

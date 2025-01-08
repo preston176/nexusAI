@@ -2,8 +2,8 @@
 import { FormEvent, useEffect, useRef, useState, useTransition } from "react"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { askQuestion, Message } from "@/actions/askQuestion"
-import { Loader, Loader2Icon } from "lucide-react"
+import { askQuestion } from "@/actions/askQuestion"
+import {  Loader2Icon } from "lucide-react"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { useUser } from "@clerk/nextjs"
 import { collection, orderBy, query } from "firebase/firestore"
@@ -30,7 +30,7 @@ function Chat({ id }: {
     const bottomofChatRef = useRef<HTMLDivElement>(null);
 
 
-    const [snapshot, loading, error] = useCollection(
+    const [snapshot, loading, ] = useCollection(
         user && query(
             collection(db, "users", user?.id, "files", id, "chat"),
             orderBy("createdAt", "asc")
