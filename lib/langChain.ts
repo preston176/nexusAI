@@ -209,7 +209,8 @@ const generateLangchainCompletion = async (docId: string, question: string) => {
   //   Define a prompt template for answering questions based on retrieved context
   console.log("--- Defining a prompt template for answering questions ... ---");
   const historyAwareRetrievalPrompt = ChatPromptTemplate.fromMessages([
-    ["system", "Answer the user's question based on the below context"],
+    ["system", "Answer the user's question based on the below context:"],
+    ["system", "{context}"], 
     ...chatHistory,
     ["user", "{input}"],
   ]);
