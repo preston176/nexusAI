@@ -3,20 +3,15 @@ import PdfView from "@/components/PdfView";
 import { adminDb } from "@/firebaseAdmin";
 import { auth } from "@clerk/nextjs/server";
 
-// Define the props type
-interface PageProps {
-    params: {
-        id: string;
-    };
-}
+// Ensure `params` is awaited properly
+async function ChatToFile({ params }: { params: Promise<{ id: string }> }) {
+    // Await the params to resolve the promise
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
 
-async function ChatToFile({ params: { id } }: PageProps) {
-    // Protect the route
     auth.protect();
-    // Get the authenticated user's ID
     const { userId } = await auth();
 
-    // Fetch the document reference from Firestore
     const ref = await adminDb
         .collection("users")
         .doc(userId!)
@@ -24,20 +19,19 @@ async function ChatToFile({ params: { id } }: PageProps) {
         .doc(id)
         .get();
 
-    // Get the download URL from the document data
     const url = ref.data()?.downloadURL;
 
     return (
         <div className="grid lg:grid-cols-5 h-full overflow-hidden">
-            {/* Right section */}
+            {/* Right */}
             <div className="col-span-5 lg:col-span-2 overflow-y-auto">
-                {/* Chat component */}
-                <Chat id={await id} />
+                {/* Chat */}
+                <Chat id={id} />
             </div>
 
-            {/* Left section */}
+            {/* Left */}
             <div className="col-span-5 lg:col-span-3 bg-gray-100 border-r-2 lg:border-blue-600 lg:-order-1 overflow-auto">
-                {/* PDF View component */}
+                {/* View the PDF */}
                 <PdfView url={url} />
             </div>
         </div>

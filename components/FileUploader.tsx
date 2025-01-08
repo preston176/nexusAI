@@ -3,7 +3,7 @@
 import useUpload, { StatusText } from "@/app/dashboard/upload/useUpload";
 import { BuildingIcon, CheckCircleIcon, CircleArrowDown, RocketIcon, SaveIcon } from "lucide-react"
 import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback, useEffect, JSX } from "react"
 import { useDropzone } from "react-dropzone"
 
 function FileUploader() {
