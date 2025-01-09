@@ -44,7 +44,8 @@ $ npm install
 $ npm run dev
 # Open browser http://localhost:3000
 ```
-### ENV
+### .env Configuration Guide
+
 ```
 1. Create A `.env` file and add the following:
 
@@ -83,6 +84,8 @@ $ npm run dev
   
     ```
 </details>
+
+```
 
 ## Live Preview
 
