@@ -3,12 +3,14 @@ import { FormEvent, useEffect, useRef, useState, useTransition } from "react"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { askQuestion } from "@/actions/askQuestion"
-import {  Loader2Icon } from "lucide-react"
+import { Loader2Icon } from "lucide-react"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { useUser } from "@clerk/nextjs"
 import { collection, orderBy, query } from "firebase/firestore"
 import { db } from "@/firebase"
 import ChatMessage from "./ChatMessage"
+import { useToast } from "@/hooks/use-toast"
+
 
 export type Message = {
     id?: string;
@@ -22,6 +24,7 @@ function Chat({ id }: {
 }) {
 
     const { user } = useUser();
+    const { toast } = useToast();
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("")
     const [isPending, startTransition] = useTransition();
@@ -30,7 +33,7 @@ function Chat({ id }: {
     const bottomofChatRef = useRef<HTMLDivElement>(null);
 
 
-    const [snapshot, loading, ] = useCollection(
+    const [snapshot, loading,] = useCollection(
         user && query(
             collection(db, "users", user?.id, "files", id, "chat"),
             orderBy("createdAt", "asc")
@@ -99,11 +102,11 @@ function Chat({ id }: {
             const { success, message } = await askQuestion(id, question)
 
             if (!success) {
-                // toast({
-                //     variant: "destructive",
-                //     title: "Error",
-                //     description: message,
-                // });
+                toast({
+                    variant: "destructive",
+                    title: "Error",
+                    description: message,
+                });
 
                 setMessages((prev) =>
                     prev.slice(0, prev.length - 1).concat([
