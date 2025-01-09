@@ -1,6 +1,8 @@
 "use client"
 
 import useUpload, { StatusText } from "@/app/dashboard/upload/useUpload";
+import { useToast } from "@/hooks/use-toast";
+import useSubscription from "@/hooks/useSubscription";
 import { BuildingIcon, CheckCircleIcon, CircleArrowDown, RocketIcon, SaveIcon } from "lucide-react"
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, JSX } from "react"
@@ -9,6 +11,8 @@ import { useDropzone } from "react-dropzone"
 function FileUploader() {
     const { progress, status, fileId, handleUpload } = useUpload();
     const router = useRouter();
+    const { isOverFileLimit, filesLoading } = useSubscription();
+    const { toast } = useToast();
 
     useEffect(() => {
         if (fileId) {
@@ -19,25 +23,31 @@ function FileUploader() {
         // Do sth with files
         const file = acceptedFiles[0]
         if (file) {
-            await handleUpload(file)
+            if (!isOverFileLimit && !filesLoading) {
+                await handleUpload(file)
+            }
         } else {
-
+            toast({
+                variant: "destructive",
+                title: "Free Plan File Limit Reached",
+                description: "You have reached the maximum number of files allowed for your account. Please upgrade to add more documents."
+            })
         }
     }, [handleUpload])
 
     const statusIcons: {
         [key in StatusText]: JSX.Element;
     } = {
-        [StatusText.UPLOADING] : (
+        [StatusText.UPLOADING]: (
             <RocketIcon className="h-20 w-20 text-indigo-600" />
         ),
-        [StatusText.UPLOADED] : (
+        [StatusText.UPLOADED]: (
             <CheckCircleIcon className="h-20 w-20 text-indigo-600" />
         ),
-        [StatusText.GENERATING] : (
+        [StatusText.GENERATING]: (
             <BuildingIcon className="h-20 w-20 text-indigo-600 animate-bounce" />
         ),
-        [StatusText.SAVING] : (
+        [StatusText.SAVING]: (
             <SaveIcon className="h-20 w-20 text-indigo-600 animate-bounce" />
         ),
     }
