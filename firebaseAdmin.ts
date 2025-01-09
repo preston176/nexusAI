@@ -4,14 +4,13 @@ import { getFirestore } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
 
 
-import serviceKey from "./service_key.json" assert { type: "json" };
+const serviceKeyJson = JSON.parse(Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_JSON!, 'base64').toString('utf-8'));
 
 let app: App;
 
 if (getApps().length === 0) {
   app = initializeApp({
-    // @ts-expect-error: type issue
-    credential: cert(serviceKey),
+    credential: cert(serviceKeyJson),
   });
 } else {
   app = getApp();
