@@ -2,7 +2,6 @@
 import { features } from "./_data/features";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { motion } from "motion/react"
 import Image from "next/image";
 
 export default function Home() {
