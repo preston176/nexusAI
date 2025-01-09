@@ -71,12 +71,16 @@ $ npm run dev
 
     # Firebase
     FIREBASE_STORAGE_BUCKET=xxxxxx.firebasestorage.app
+    FIREBASE_SERVICE_ACCOUNT_JSON=<base64 encoded json>
+    you can do this by running cat service_key.json | base64 after downloading the service_key.json file and placing it in the root of the project
 
     # Azure OpenAI API Configuration
     AZURE_OPENAI_API_INSTANCE_NAME=nexusaxxxxx
     AZURE_OPENAI_API_KEY=5KdeOKxxxxxxx
     AZURE_OPENAI_API_VERSION=2024-02-01
     AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME=text-embedding-ada-002
+
+  
     ```
 </details>
 
