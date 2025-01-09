@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "nexusai-pdf",
+  "private_key_id": "ad1088513d550814de7b1a9a39da99ab74dab522",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCyNdMWliQGN3Y7\nlkIkPPGmzS1mVgeesh6VhSbd+c10Sk8aA3HUU/NX4OZCD3qx3snHZ3pLkZMPE41d\n6o1y5wX/nok89hYUyZ84L50Pi3Bt61tgYgpOlKHeZnfOx6grxlr7km6ZjVYEX/dZ\nbd+zyQQT9G6g52NO2LuhmMS+w/gKJ+hvJRRHl5z7It3dqitnfgdxh8wuDVJxtc/n\ndADNTZXnpkYJ30Au+qOIae9Ssfdzxja1InEmz6ZuVKK038tDyvGMaSoTDrVkd/gZ\ncDt6IvysjHUzUmsAtLGBHnV9YlQbqMELUI+hdiBes96FMq7I5WhBFYqMrE+i9Mdw\nGBJ4jogdAgMBAAECggEAGBunb3gGrg+dL0DruC7FaxD5Gg270KhcclI1uJQ1SszN\nqCF8qeJkekgqphele7/9kHvrY6MxH3o/5stW8MsXeOXXv3cz9AJ1h1qLlwGAR2Ju\nNVr19Xzua+F1RjQkyC04fC1qSFwCHavk0ISIXXAtXMy1lY9P1CgGM/1wajUlDixv\nTYEhFN9+u2UbRSbYNsZCWuJQkbsen2hzPjLfUtRb6wbAzCUyAVGo4sCMb5n1Vy3r\nUQW95MPTBSyFRaK9PPRKvowjosBnXDBCCdu9kezLgavADCXrhDpkKOaDEUb2ejXN\nwpeOV+AAus97jPBH6RqnyUG1rzTpiZVgFceiktrvqQKBgQDtQPSRK0BlkIqaC3ks\nljGn58Jvc5PrUbCQGen/+/i2QsNgVu/0+KjKo3xaWPX8VhzanWi1vWhSvoaQS+Zn\nERO/AyD9AsvnhGXNpRxqELs7s3KX/etpsYWpQgNttVWILmFLCh9g90+3tllGnl27\nY1hAQ4Fvz0kyPlef7JJ+P8AT2QKBgQDASpGLbxSMQxOZtcKugyYCQLgWlQSHEUNg\ng59ew7J60LiZqL30y63Q4kmyDGmQztbcIlIuUfyeIloApbZ4OYPNFK4fKczGE4mb\nzsctJox6Ty1+LvFGvEFOY+qdaVL6QIhWS6bsMi2cMq5za5GRVS1hZZvQ2cTHLAGz\nNRN39BGf5QKBgQCwt7QzOSMjQ5FpgmhEhK8B4Mfb2hvwqI06GINKb7VmlL4QUVE0\nh865+SIT7bVzufSOBbdLv4QoNc/nRRGd7YNmwH7e1ilpDh4CGhzbCBFeO6B8g97I\ngDkNxKTnH61Q3TMNAMI0qKGRNlqzFhy9Chde7qlHzf84VGVSMpU/Ql7gqQKBgQC1\nsYAG9UXAJt1NX05+IRP4Cvkm9VWa3ngAqT4ch+OMYs4a+zPKK+6oMjmaUForZxXk\nWVW3yOZe8WyDshFRVl8wl7rTXWbNPsbG/0J6ajNQmqIM2gRHZzh5/rVAWbX7GqD4\nkXE/O0aXkdf+3YRlg8tmfWEWnb5uyCkvERa9QFSq9QKBgQDKCxJEkQ2Vxq2nFd6A\n8veO6CEpykyY79PC41wzfz2ZvYJmOqz7srqnfab0yZsMPpdCeJjv44TSI/Ynltjs\nuSpIpFYX1sXEsAhPFEeyoUwVgl1vu9Hd3lqBAKc5BroMejfU3KNqzDNFIUFeE/AV\nQGwt2XsnsGet0IQo9ENMqnHjLQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-vtirz@nexusai-pdf.iam.gserviceaccount.com",
+  "client_id": "103880012093080261713",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-vtirz%40nexusai-pdf.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

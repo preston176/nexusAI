@@ -6,8 +6,9 @@ import { generateLangchainCompletion } from "@/lib/langChain";
 import { auth } from "@clerk/nextjs/server";
 // import { generateLangchainCompletion } from "@/lib/langChain/langchain";
 
-const FREE_LIMIT = 10;
-const PRO_LIMIT = 100;
+// Chat messages limit
+const PRO_LIMIT = 20;
+const FREE_LIMIT = 5;
 
 export async function askQuestion(id: string, question: string) {
   auth.protect();
@@ -26,7 +27,26 @@ export async function askQuestion(id: string, question: string) {
     (doc) => doc.data().role === "human"
   );
 
-  //   TODO: Limit Pro/free users
+  const userRef = await adminDb.collection("users").doc(userId!).get();
+  //  Limit Pro/free users
+
+  if (!userRef.data()?.hasActiveMembership) {
+    if (userMessages.length >= FREE_LIMIT) {
+      return {
+        success: false,
+        message: `You will need to upgrade to Pro to ask more than ${FREE_LIMIT} questions`,
+      };
+    }
+  }
+
+  if (userRef.data()?.hasActiveMembership) {
+    if (userMessages.length >= PRO_LIMIT) {
+      return {
+        success: false,
+        message: `You have reached the PRO Limit of ${PRO_LIMIT} questions per document `,
+      };
+    }
+  }
 
   const userMessage: Message = {
     role: "human",
@@ -49,5 +69,5 @@ export async function askQuestion(id: string, question: string) {
 
   await chatRef.add(aiMessage);
 
-  return {success: true, message: null}
+  return { success: true, message: null };
 }
