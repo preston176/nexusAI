@@ -19,6 +19,7 @@
     "@paystack/inline-js": "^2.22.1",
     "@pinecone-database/pinecone": "^4.0.0",
     "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.4",
     "@react-pdf/renderer": "^4.1.5",
     "@types/byte-size": "^8.1.2",
     "axios": "^1.7.9",
