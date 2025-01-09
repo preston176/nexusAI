@@ -2,8 +2,8 @@
 import { features } from "./_data/features";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { motion } from "motion/react"
 import Image from "next/image";
-
 
 export default function Home() {
   return (
@@ -32,12 +32,14 @@ export default function Home() {
           </Button>
         </div>
         <div className="relative overflow-hidden pt-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+
+          <div className="mx-auto max-w-7xl px-6 lg:px-8" >
             <Image alt="Application Screenshot"
-              src={"https://i.imgur.com/VciRSTI.jpeg"}
+              src={"/demo.png"}
               width={2432}
               height={1442}
               className="mb-[-0%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
+
             />
             <div aria-hidden="true" className="relative">
               <div className="absolute bottom-0  bg-gradient-to-t from-white/90 pt-[5%]">
@@ -45,6 +47,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+
         </div>
         <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
           <dl className="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-balance leading-7 text-gray-600 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">{

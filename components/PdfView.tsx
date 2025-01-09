@@ -111,7 +111,7 @@ function PdfView({
                     src={url}
                     title="PDF View"
                     width="100%"
-                    height="100vh"
+                    height="870"
                     frameBorder="0"
                 />
             ) : (
