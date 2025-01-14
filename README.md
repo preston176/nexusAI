@@ -46,8 +46,8 @@ $ npm run dev
 ```
 ### .env Configuration Guide
 
-```
 1. Create A `.env` file and add the following:
+
 
 <details>
     <summary>Environment Variables</summary>
@@ -85,7 +85,6 @@ $ npm run dev
     ```
 </details>
 
-```
 
 ## Live Preview
 
