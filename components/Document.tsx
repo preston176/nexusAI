@@ -62,13 +62,11 @@ function Document({
               await deleteDocument(id)
             })
           }
-        }} variant={"outline"} disabled={isDeleting || !hasActiveMembership}>
+        }} variant={"outline"} disabled={isDeleting}>
           <Trash2Icon className="h-6 w-6 text-red-500" />
-          {
-            !hasActiveMembership && <span className="text-red-500 ml-2">
+    {/* <span className="text-red-500 ml-2">
               PRO Feature
-            </span>
-          }
+            </span> */}
         </Button>
         <Button variant={"outline"} asChild>
           <a href={downloadURL} download>
