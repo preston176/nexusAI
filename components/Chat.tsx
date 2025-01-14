@@ -51,7 +51,7 @@ function Chat({ id }: {
     useEffect(() => {
         if (!snapshot) return;
 
-        console.log("updated snapshot", snapshot.docs)
+        // console.log("updated snapshot", snapshot.docs)
 
         // get 2nd last msg to check if the AI is thinking
 
