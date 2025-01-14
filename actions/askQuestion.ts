@@ -7,8 +7,8 @@ import { auth } from "@clerk/nextjs/server";
 // import { generateLangchainCompletion } from "@/lib/langChain/langchain";
 
 // Chat messages limit
-const PRO_LIMIT = 20;
-const FREE_LIMIT = 5;
+const PRO_LIMIT = 40;
+const FREE_LIMIT = 15;
 
 export async function askQuestion(id: string, question: string) {
   auth.protect();
