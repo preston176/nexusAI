@@ -1,6 +1,6 @@
 "use client";
 
-import useSubscription from "@/hooks/useSubscription";
+// import useSubscription from "@/hooks/useSubscription";
 import { useTransition } from "react";
 import { Button } from "./ui/button";
 import { DownloadCloudIcon, Trash2Icon } from "lucide-react";
@@ -20,7 +20,7 @@ function Document({
   downloadURL: string;
 }) {
   const [isDeleting, startTransaction] = useTransition();
-  const { hasActiveMembership } = useSubscription();
+  // const { hasActiveMembership } = useSubscription();
 
   return (
     <div
