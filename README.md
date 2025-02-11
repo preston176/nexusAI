@@ -32,10 +32,10 @@ To clone and run this web app, you'll need [Git](https://git-scm.com) and [Node.
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/preston176/ytdl-next
+$ git clone https://github.com/preston176/nexusAI
 
 # Go into the repository
-$ cd ytdl
+$ cd nexusAI
 
 # Install dependencies
 $ npm install
@@ -94,7 +94,6 @@ $ npm run dev
 ## Disclaimer
 
 - Copyright Compliance: By using [NexusAI](https://nexusai-pdf.vercel.app/), you agree to comply with Clerk's terms of service and respect copyright laws. 
-- It is **illegal** to download videos or audio content without the permission of the content owner. 
 
 
 ## Support
