@@ -1,77 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
+import admin from "firebase-admin";
 
-import { adminDb } from "@/firebaseAdmin";
-
-const PAYSTACK_API_KEY = process.env.PAYSTACK_API_KEY;
+// Initialize Firestore
+const adminDb = admin.firestore();
+const PAYSTACK_API_KEY = process.env.PAYSTACK_API_KEY!;
 
 export async function POST(req: NextRequest) {
-
-
   try {
-    const { email, amount, userId } = await req.json(); // Parsing the incoming JSON request body
+    const { reference, userId } = await req.json();
 
-    // Send request to Paystack to initialize the transaction
-    const response = await axios.post(
-      "https://api.paystack.co/transaction/initialize",
-      {
-        userId,
-        email,
-        amount, // Amount in kes
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${PAYSTACK_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(response);
-
-    const user = await adminDb.collection("users").doc(userId).get();
-
-    let payStackUserId = user.data()?.payStackUserId;
-
-    if (!payStackUserId) {
-      // Create a new customer if Paystack user ID doesn't exist
-      const customerResponse = await axios.post(
-        "https://api.paystack.co/customer",
-        {
-          email, // You can add more fields like first_name, last_name, etc.
-          metadata: {
-            userId, // Storing userId in metadata
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${PAYSTACK_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-        }
+    if (!reference || !userId) {
+      return NextResponse.json(
+        { message: "Missing reference or userId" },
+        { status: 400 }
       );
-
-      // Save the Paystack customer code (customer_code) in Firestore for future reference
-      const customerCode = customerResponse.data.data.customer_code;
-
-      await adminDb.collection("users").doc(userId).set(
-        {
-          payStackUserId: customerCode, // Save customer_code as the payStackUserId
-          hasActiveMembership: true
-        },
-        { merge: true } // Use merge to avoid overwriting existing fields
-      );
-
-      payStackUserId = customerCode;
     }
 
-    // Create the payment session using the Paystack customer code
-    const sessionResponse = await axios.post(
-      "https://api.paystack.co/transaction/initialize",
-      {
-        email,
-        amount,
-        customer: payStackUserId, // Use the Paystack user ID to link the customer
-      },
+    // Verify transaction with Paystack
+    const verifyResponse = await axios.get(
+      `https://api.paystack.co/transaction/verify/${reference}`,
       {
         headers: {
           Authorization: `Bearer ${PAYSTACK_API_KEY}`,
@@ -80,10 +28,32 @@ export async function POST(req: NextRequest) {
       }
     );
 
-    // Respond with the Paystack transaction initialization data, which includes the reference
-    return NextResponse.json(sessionResponse.data.data);
+    const transaction = verifyResponse.data.data;
+
+    if (transaction.status === "success") {
+      // Save transaction details in Firestore
+      await adminDb.collection("transactions").doc(reference).set({
+        userId,
+        amount: transaction.amount / 100, // Convert from kobo to KES
+        email: transaction.customer.email,
+        status: "success",
+        createdAt: new Date(),
+      });
+
+      // Activate subscription
+      await adminDb.collection("users").doc(userId).set(
+        {
+          hasActiveMembership: true,
+        },
+        { merge: true }
+      );
+
+      return NextResponse.json({ message: "Payment verified", success: true });
+    }
+
+    return NextResponse.json({ message: "Verification failed", success: false }, { status: 400 });
   } catch (error) {
-    console.error("Error initializing transaction:", error);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    console.error("Error verifying payment:", error);
+    return NextResponse.json({ message: "Server error", success: false }, { status: 500 });
   }
 }

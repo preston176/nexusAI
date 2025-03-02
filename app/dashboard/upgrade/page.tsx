@@ -36,17 +36,8 @@ function PricingPage() {
             if (hasActiveMembership === true) {
                 return;
             }
-            const response = await fetch("/api/paystack", {
-                method: "POST",
-                body: JSON.stringify({ email: userDetails.email, amount: 40000, userId: user.id }), // Amount in kobo (1 Ksh = 100 Kobo)
-                headers: { "Content-Type": "application/json" },
-            });
 
-            const data = await response.json();
 
-            // console.log("Paystack transaction initialization response:", data);
-
-            if (data) {
                 const paystack = new PaystackPop();
                 paystack.newTransaction({
                     key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!, // Your public key
@@ -61,19 +52,40 @@ function PricingPage() {
 
                         // You can parse the transaction object if you need to.
                     },
-                    onSuccess: (transaction) => {
-                        // Handle success (e.g., update user's subscription status)
-                        alert("Payment successful! Reference: " + transaction.reference);
-                        router.push(`/dashboard?upgrade=true`);
+                    onSuccess: async (transaction) => {
+                        alert(`Payment successful! Verifying transaction...`);
+            
+                        try {
+                            const verifyResponse = await fetch("/api/paystack", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    reference: transaction.reference,
+                                    userId: user.id,
+                                }),
+                            });
+            
+                            const result = await verifyResponse.json();
+            
+                            if (result.success) {
+                                alert("Payment verified successfully!");
+                                router.push(`/dashboard?upgrade=true`);
+                            } else {
+                                alert("Payment verification failed!");
+                                router.push(`/dashboard?upgrade=false`);
+                            }
+                        } catch (error) {
+                            alert("Error verifying payment");
+                            console.error(error)
+                            router.push(`/dashboard?upgrade=false`);
+                        }
                     },
                     onError: () => {
                         alert("An Error occurred!!");
                         router.push(`/dashboard?upgrade=false`);
                     }
                 });
-            } else {
-                console.error("Error initializing Paystack transaction", data);
-            }
+            
         });
     };
 
