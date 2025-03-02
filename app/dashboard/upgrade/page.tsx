@@ -44,7 +44,7 @@ function PricingPage() {
 
             const data = await response.json();
 
-            console.log("Paystack transaction initialization response:", data);
+            // console.log("Paystack transaction initialization response:", data);
 
             if (data) {
                 const paystack = new PaystackPop();
@@ -54,7 +54,7 @@ function PricingPage() {
                     amount: 40000, // Amount in kobo
                     onCancel: () => {
                         alert("Transaction cancelled");
-                        router.push(`/dashboard`);
+                        router.push(`/dashboard?upgrade=false`);
                     },
                     onLoad: () => {
                         // Transaction has loaded
@@ -66,6 +66,10 @@ function PricingPage() {
                         alert("Payment successful! Reference: " + transaction.reference);
                         router.push(`/dashboard?upgrade=true`);
                     },
+                    onError: () => {
+                        alert("An Error occurred!!");
+                        router.push(`/dashboard?upgrade=false`);
+                    }
                 });
             } else {
                 console.error("Error initializing Paystack transaction", data);
