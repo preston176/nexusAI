@@ -12,6 +12,10 @@ import { PineconeStore } from "@langchain/pinecone";
 import { Index, RecordMetadata } from "@pinecone-database/pinecone";
 import { adminDb } from "../firebaseAdmin";
 import { auth } from "@clerk/nextjs/server";
+// Alternative
+import { ChatGroq } from "@langchain/groq";
+
+
 
 // Initialize Gemini Model
 // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
@@ -22,11 +26,17 @@ import { auth } from "@clerk/nextjs/server";
 //     modelName: "gpt-4o"
 // });
 
-const model = new ChatOpenAI({
-  azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
-  azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME,
-  azureOpenAIApiDeploymentName: "gpt-4o", // <-- Add your deployment name here
-  azureOpenAIApiVersion: "2024-02-01", // Use the correct API version
+// const model = new ChatOpenAI({
+//   azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
+//   azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME,
+//   azureOpenAIApiDeploymentName: "gpt-4o", // <-- Add your deployment name here
+//   azureOpenAIApiVersion: "2024-02-01", // Use the correct API version
+// });
+
+// GROQ Free
+const model = new ChatGroq({
+  model: "mixtral-8x7b-32768",
+  temperature: 0
 });
 
 export const indexName = "nexus";
