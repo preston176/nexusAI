@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import admin from "firebase-admin";
+import { FieldValue } from "firebase-admin/firestore";
+import { adminDb } from "@/firebaseAdmin"; // Ensure this is correctly initialized
 
-// Initialize Firestore
-const adminDb = admin.firestore();
 const PAYSTACK_API_KEY = process.env.PAYSTACK_API_KEY!;
 
 export async function POST(req: NextRequest) {
@@ -37,6 +36,7 @@ export async function POST(req: NextRequest) {
         .toString()
         .padStart(2, "0")}/${currentDate.getFullYear()}`;
 
+
       // Save transaction details in Firestore
       await adminDb.collection("transactions").doc(reference).set({
         userId,
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         email: transaction.customer.email,
         status: "success",
         subscriptionStart: formattedDate, // Store dd/mm/yyyy format
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        createdAt: FieldValue.serverTimestamp(), // Use latest FieldValue
       });
 
       // Activate subscription & save subscription date
