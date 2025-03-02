@@ -31,19 +31,27 @@ export async function POST(req: NextRequest) {
     const transaction = verifyResponse.data.data;
 
     if (transaction.status === "success") {
+      // Get current date in dd/mm/yyyy format
+      const currentDate = new Date();
+      const formattedDate = `${currentDate.getDate().toString().padStart(2, "0")}/${(currentDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${currentDate.getFullYear()}`;
+
       // Save transaction details in Firestore
       await adminDb.collection("transactions").doc(reference).set({
         userId,
         amount: transaction.amount / 100, // Convert from kobo to KES
         email: transaction.customer.email,
         status: "success",
-        createdAt: new Date(),
+        subscriptionStart: formattedDate, // Store dd/mm/yyyy format
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
       });
 
-      // Activate subscription
+      // Activate subscription & save subscription date
       await adminDb.collection("users").doc(userId).set(
         {
           hasActiveMembership: true,
+          subscriptionStart: formattedDate,
         },
         { merge: true }
       );
