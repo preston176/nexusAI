@@ -1,13 +1,22 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Loader2Icon, Maximize, Minimize } from "lucide-react";
+import { Document, Page } from "react-pdf";
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import { Loader2Icon, Maximize, Minimize, ZoomIn, ZoomOut } from "lucide-react";
+import { pdfjs } from "react-pdf";
+
+// Configure PDF.js worker
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 function PdfView({ url }: { url: string }) {
     const [file, setFile] = useState<Blob | null>(null);
+    const [numPages, setNumPages] = useState<number>(0);
+    const [scale, setScale] = useState<number>(1);
     const [isFullscreen, setIsFullscreen] = useState(false);
-    const [scale, ] = useState<number>(1);
     const embedRef = useRef<HTMLDivElement>(null);
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
     useEffect(() => {
         const fetchFile = async () => {
@@ -27,6 +36,8 @@ function PdfView({ url }: { url: string }) {
         }
     };
 
+    const zoomIn = () => setScale((prev) => Math.min(prev + 0.2, 2));
+    const zoomOut = () => setScale((prev) => Math.max(prev - 0.2, 0.5));
 
     return (
         <div className="flex flex-col justify-center items-center w-full">
@@ -38,23 +49,18 @@ function PdfView({ url }: { url: string }) {
             >
                 {/* Controls */}
                 <div className="absolute top-4 right-4 z-50 flex gap-2">
-                    {/* <button
-                        onClick={zoomOut}
-                        aria-label="Zoom Out"
-                        className="bg-gray-800 text-white p-2 rounded-md"
-                    >
-                        <ZoomOut size={20} />
-                    </button>
-                    <button
-                        onClick={zoomIn}
-                        aria-label="Zoom In"
-                        className="bg-gray-800 text-white p-2 rounded-md"
-                    >
-                        <ZoomIn size={20} />
-                    </button> */}
+                    {isMobile && (
+                        <>
+                            <button onClick={zoomOut} className="bg-gray-800 text-white p-2 rounded-md">
+                                <ZoomOut size={20} />
+                            </button>
+                            <button onClick={zoomIn} className="bg-gray-800 text-white p-2 rounded-md">
+                                <ZoomIn size={20} />
+                            </button>
+                        </>
+                    )}
                     <button
                         onClick={toggleFullscreen}
-                        aria-label={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                         className="bg-gray-800 text-white p-2 rounded-md"
                     >
                         {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
@@ -63,13 +69,27 @@ function PdfView({ url }: { url: string }) {
 
                 {/* PDF Viewer */}
                 {file ? (
-                    <embed
-                        src={URL.createObjectURL(file)}
-                        type="application/pdf"
-                        width={`${scale * 100}%`}
-                        height="100%"
-                        className="border-0"
-                    />
+                    isMobile ? (
+                        <div className="overflow-auto h-full w-full">
+                            <Document
+                                file={URL.createObjectURL(file)}
+                                onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                                className="w-full"
+                            >
+                                {Array.from(new Array(numPages), (_, index) => (
+                                    <Page key={index + 1} pageNumber={index + 1} scale={scale} />
+                                ))}
+                            </Document>
+                        </div>
+                    ) : (
+                        <embed
+                            src={URL.createObjectURL(file)}
+                            type="application/pdf"
+                            width="100%"
+                            height="100%"
+                            className="border-0"
+                        />
+                    )
                 ) : (
                     <Loader2Icon className="animate-spin h-20 w-20 text-blue-600" />
                 )}
