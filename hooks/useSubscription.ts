@@ -3,10 +3,10 @@
 import { db } from "@/firebase";
 import { useUser } from "@clerk/nextjs";
 import { collection, doc, updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 
-// No of docs
+// File limits
 const PRO_LIMIT = 20;
 const FREE_LIMIT = 5;
 
@@ -15,16 +15,15 @@ function useSubscription() {
   const [isOverFileLimit, setIsOverFileLimit] = useState(false);
 
   const { user } = useUser();
-  
-  // Ensure user exists before creating Firestore references
   const userDocRef = user?.id ? doc(db, "users", user.id) : null;
 
-  // Listen to user doc
+  // Track if subscription update has already been performed
+  const hasUpdatedSubscription = useRef(false);
+
   const [snapshot, loading, error] = useDocument(userDocRef, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  // Listen to the files collection
   const [filesSnapshot, filesLoading] = useCollection(
     user?.id ? collection(db, "users", user.id, "files") : null
   );
@@ -37,7 +36,6 @@ function useSubscription() {
 
     setHasActiveMembership(data.hasActiveMembership);
 
-    // Check subscription expiry
     if (data.subscriptionStart && user?.id) {
       const [day, month, year] = data.subscriptionStart.split("/").map(Number);
       const subscriptionDate = new Date(year, month - 1, day);
@@ -47,12 +45,17 @@ function useSubscription() {
         (currentDate.getTime() - subscriptionDate.getTime()) / (1000 * 60 * 60 * 24)
       );
 
-      if (differenceInDays > 30) {
+      if (differenceInDays > 30 && data.hasActiveMembership && !hasUpdatedSubscription.current) {
         console.log("Subscription expired, updating Firestore...");
 
         updateDoc(doc(db, "users", user.id), {
           hasActiveMembership: false,
-        }).then(() => setHasActiveMembership(false));
+        })
+          .then(() => {
+            setHasActiveMembership(false);
+            hasUpdatedSubscription.current = true; // Prevent redundant updates
+          })
+          .catch((error) => console.error("Error updating subscription:", error));
       }
     }
   }, [snapshot, user?.id]);
@@ -63,7 +66,7 @@ function useSubscription() {
     const files = filesSnapshot.docs;
     const usersLimit = hasActiveMembership ? PRO_LIMIT : FREE_LIMIT;
 
-    console.log(`--- Checking if user is over file limit ---`, files.length, usersLimit);
+    console.log(`Checking file limit: ${files.length}/${usersLimit}`);
     setIsOverFileLimit(files.length >= usersLimit);
   }, [filesSnapshot, hasActiveMembership]);
 
