@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Loader2Icon, Maximize, Minimize, ZoomIn, ZoomOut } from "lucide-react";
+import { Loader2Icon, Maximize, Minimize } from "lucide-react";
 
 function PdfView({ url }: { url: string }) {
     const [file, setFile] = useState<Blob | null>(null);
     const [isFullscreen, setIsFullscreen] = useState(false);
-    const [scale, setScale] = useState<number>(1);
+    const [scale, ] = useState<number>(1);
     const embedRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -27,8 +27,6 @@ function PdfView({ url }: { url: string }) {
         }
     };
 
-    const zoomIn = () => setScale((prev) => Math.min(prev + 0.2, 2));
-    const zoomOut = () => setScale((prev) => Math.max(prev - 0.2, 0.5));
 
     return (
         <div className="flex flex-col justify-center items-center w-full">
