@@ -42,7 +42,7 @@ function PricingPage() {
                 paystack.newTransaction({
                     key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!, // Your public key
                     email: userDetails.email!,
-                    amount: 40000, // Amount in kobo
+                    amount: 25000, // Amount in kobo
                     onCancel: () => {
                         alert("Transaction cancelled");
                         router.push(`/dashboard?upgrade=false`);
@@ -118,7 +118,7 @@ function PricingPage() {
                             <ul className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
                                 <li className="flex gap-x-3">
                                     <CheckIcon className="h-6 w-5 flex-none text-blue-600" />
-                                    Store up to 5 Documents
+                                    Store up to 5 Documents at a time.
                                 </li>
                                 <li className="flex gap-x-3">
                                     <CheckIcon className="h-6 w-5 flex-none text-blue-600" />
@@ -138,7 +138,7 @@ function PricingPage() {
                                 Maximize your Productivity with PRO Features
                             </p>
                             <p className="mt-6 flex items-baseline gap-x-1">
-                                <span className="text-4xl font-bold tracking-tighter text-gray-900">Ksh 400</span>
+                                <span className="text-4xl font-bold tracking-tighter text-gray-900">Ksh 250</span>
                                 <span className="text-sm font-semibold leading-6 text-gray-600">/ Month</span>
                             </p>
 

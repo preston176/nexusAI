@@ -68,7 +68,7 @@ function Pricing() {
                         <div className="ring-2 ring-blue-600 rounded-3xl p-8">
                             <h3 className="text-lg font-semibold leading-8 text-blue-600">Pro Plan</h3>
                             <p className="mt-4 text-sm leading-6 text-gray-600">Maximize productivity with PRO features</p>
-                            <p className="mt-6 text-4xl font-bold tracking-tighter text-gray-900">Ksh 400</p>
+                            <p className="mt-6 text-4xl font-bold tracking-tighter text-gray-900">Ksh 250</p>
                             <p className="text-sm font-semibold leading-6 text-gray-600">/ Month</p>
                             <ul className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
                                 <li className="flex gap-x-3">
