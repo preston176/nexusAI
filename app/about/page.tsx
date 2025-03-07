@@ -54,6 +54,19 @@ export default function About() {
                         </a>{" "}
                         today!
                     </p>
+
+                    {/* Video Section */}
+                    <h2 className="text-xl font-semibold text-gray-900 mt-6">Watch Our Introduction Video</h2>
+                    <div className="mt-4">
+                        <iframe
+                            className="w-full aspect-video rounded-md"
+                            src="https://www.youtube.com/embed/ABdXAWunyuc"
+                            title="NexusAI Introduction"
+                            frameBorder="0"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
+
                 </div>
 
                 <Footer />
