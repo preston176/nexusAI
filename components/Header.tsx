@@ -21,7 +21,7 @@ export default function Header() {
         {/* Desktop Menu */}
         <SignedIn>
           <div className="hidden md:flex items-center space-x-4">
-            <NavLink href="/dashboard">Pricing</NavLink>
+            <NavLink href="/dashboard/upgrade">Pricing</NavLink>
             <NavLink href="/dashboard">My Documents</NavLink>
             <Button asChild variant="outline">
               <Link href="/dashboard/upload">
