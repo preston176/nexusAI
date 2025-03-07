@@ -16,7 +16,7 @@ function Pricing() {
         if (user) {
             router.push("/dashboard/upgrade");
         } else {
-            router.push("/sign-in");
+            router.push("/dashboard");
         }
     };
 
@@ -97,7 +97,7 @@ function Pricing() {
                                 className="bg-blue-600 w-full text-white shadow-sm hover:bg-blue-500 mt-6 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6"
                                 onClick={handleUpgrade}
                             >
-                                Explore now
+                                Explore More
                             </Button>
                         </div>
                     </div>

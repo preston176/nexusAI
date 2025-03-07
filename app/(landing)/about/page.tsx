@@ -60,7 +60,7 @@ export default function About() {
                     <div className="mt-4">
                         <iframe
                             className="w-full aspect-video rounded-md"
-                            src="https://www.youtube.com/embed/ABdXAWunyuc"
+                            src="https://www.youtube.com/embed/qxq8C-HEZVY"
                             title="NexusAI Introduction"
                             frameBorder="0"
                             allowFullScreen
