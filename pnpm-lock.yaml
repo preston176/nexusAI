@@ -16,13 +16,16 @@ importers:
         version: 0.21.0
       '@langchain/community':
         specifier: ^0.3.19
-        version: 0.3.19(@browserbasehq/sdk@2.0.0(encoding@0.1.13))(@browserbasehq/stagehand@1.6.0(@playwright/test@1.49.1)(deepmerge@4.3.1)(dotenv@16.4.7)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(zod@3.24.1))(@google-cloud/storage@7.14.0(encoding@0.1.13))(@ibm-cloud/watsonx-ai@1.3.0)(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(@pinecone-database/pinecone@4.0.0)(axios@1.7.9)(crypto-js@4.2.0)(encoding@0.1.13)(firebase-admin@13.0.1(encoding@0.1.13))(google-auth-library@9.15.0(encoding@0.1.13))(ibm-cloud-sdk-core@5.1.0)(ignore@5.3.2)(jsonwebtoken@9.0.2)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(pdf-parse@1.1.1)(playwright@1.49.1)
+        version: 0.3.19(@browserbasehq/sdk@2.0.0(encoding@0.1.13))(@browserbasehq/stagehand@1.6.0(@playwright/test@1.49.1)(deepmerge@4.3.1)(dotenv@16.4.7)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(zod@3.24.1))(@google-cloud/storage@7.14.0(encoding@0.1.13))(@ibm-cloud/watsonx-ai@1.3.0)(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(@langchain/groq@0.1.3(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13))(@pinecone-database/pinecone@4.0.0)(axios@1.7.9)(crypto-js@4.2.0)(encoding@0.1.13)(firebase-admin@13.0.1(encoding@0.1.13))(google-auth-library@9.15.0(encoding@0.1.13))(ibm-cloud-sdk-core@5.1.0)(ignore@5.3.2)(jsonwebtoken@9.0.2)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(pdf-parse@1.1.1)(playwright@1.49.1)
       '@langchain/core':
         specifier: ^0.3.23
         version: 0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))
       '@langchain/google-vertexai':
         specifier: ^0.1.4
         version: 0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1)
+      '@langchain/groq':
+        specifier: ^0.1.3
+        version: 0.1.3(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)
       '@langchain/openai':
         specifier: ^0.3.14
         version: 0.3.14(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)
@@ -70,13 +73,19 @@ importers:
         version: 13.0.1(encoding@0.1.13)
       langchain:
         specifier: ^0.3.7
-        version: 0.3.7(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(axios@1.7.9)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))
+        version: 0.3.7(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(@langchain/groq@0.1.3(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13))(axios@1.7.9)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))
       lucide-react:
         specifier: ^0.468.0
         version: 0.468.0(react@19.0.0)
+      motion:
+        specifier: ^11.16.3
+        version: 11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next:
         specifier: 15.1.0
         version: 15.1.0(@opentelemetry/api@1.9.0)(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next-themes:
+        specifier: ^0.4.4
+        version: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       pdf-parse:
         specifier: ^1.1.1
         version: 1.1.1
@@ -98,6 +107,9 @@ importers:
       react-pdf:
         specifier: ^9.1.1
         version: 9.1.1(@types/react@19.0.1)(encoding@0.1.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      sonner:
+        specifier: ^2.0.1
+        version: 2.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       tailwind-merge:
         specifier: ^2.5.5
         version: 2.5.5
@@ -1038,6 +1050,12 @@ packages:
 
   '@langchain/google-vertexai@0.1.4':
     resolution: {integrity: sha512-x78wezYBOxmiMOPSatlCk4UOQd6RPxz2YVfGKLOzNV89xxHrEVX9JcyRUCx4L568S4kqZYkLvnqzZA9AF/TCaA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@langchain/core': '>=0.2.21 <0.4.0'
+
+  '@langchain/groq@0.1.3':
+    resolution: {integrity: sha512-dMzvBVaLf/0IQoHdAOAN8W/PbOcwgbvgUMCn02CqvCC90mxZ45LI0Tipzqnoaam0hiKALR5hLc3dNj1oCYV92w==}
     engines: {node: '>=18'}
     peerDependencies:
       '@langchain/core': '>=0.2.21 <0.4.0'
@@ -2330,6 +2348,20 @@ packages:
     resolution: {integrity: sha512-0iirZp3uVDjVGt9p49aTaqjk84TrglENEDuqfdlZQ1roC9CWlPk6Avf8EEnZNcAqPonwkG35x4n3ww/1THYAeQ==}
     engines: {node: '>= 12.20'}
 
+  framer-motion@11.18.2:
+    resolution: {integrity: sha512-5F5Och7wrvtLVElIpclDT0CBzMVg3dL22B64aZwHtsIY8RB4mXICLrkajK4G9R+ieSAGcgrLeae2SeUTg2pr6w==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   fs-minipass@2.1.0:
     resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
     engines: {node: '>= 8'}
@@ -2450,6 +2482,9 @@ packages:
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
+
+  groq-sdk@0.5.0:
+    resolution: {integrity: sha512-RVmhW7qZ+XZoy5fIuSdx/LGQJONpL8MHgZEW7dFwTdgkzStub2XQx6OKv28CHogijdwH41J+Npj/z2jBPu3vmw==}
 
   gtoken@6.1.2:
     resolution: {integrity: sha512-4ccGpzz7YAr7lxrT2neugmXQ3hP9ho2gcaityLVkiUecAiwiy60Ii8gRbZeOsXV19fYaRjgBSshs8kXw+NKCPQ==}
@@ -3100,6 +3135,26 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  motion-dom@11.18.1:
+    resolution: {integrity: sha512-g76KvA001z+atjfxczdRtw/RXOM3OMSdd1f4DL77qCTF/+avrRJiawSG4yDibEQ215sr9kpinSlX2pCTJ9zbhw==}
+
+  motion-utils@11.18.1:
+    resolution: {integrity: sha512-49Kt+HKjtbJKLtgO/LKj9Ld+6vw9BjH5d9sc40R/kVyH8GLAXgT42M2NnuPcJNuA3s9ZfZBUcwIgpmZWGEE+hA==}
+
+  motion@11.18.2:
+    resolution: {integrity: sha512-JLjvFDuFr42NFtcVoMAyC2sEjnpA8xpy6qWPyzQvCloznAyQ8FIXioxWfHiLtgYhoVpfUqSWpn1h9++skj9+Wg==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
@@ -3120,6 +3175,12 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  next-themes@0.4.4:
+    resolution: {integrity: sha512-LDQ2qIOJF0VnuVrrMSMLrWGjRMkq+0mpgl6e0juCLqdJ+oo8Q84JRWT6Wh11VDQKkMMe+dVzDKLWs5n87T+PkQ==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   next@15.1.0:
     resolution: {integrity: sha512-QKhzt6Y8rgLNlj30izdMbxAwjHMFANnLwDwZ+WQh5sMhyt4lEBqDK9QpvWHtIM4rINKPoJ8aiRZKg5ULSybVHw==}
@@ -3650,6 +3711,12 @@ packages:
     resolution: {integrity: sha512-YTywJG93yxwHLgrYLZjlC75moVEX04LZM4FHfihjHe1FCXm+QaLOFfSf535aXOAd0ArVQMWUAe8ZPm4VtWyXaA==}
     engines: {node: '>=12'}
 
+  sonner@2.0.1:
+    resolution: {integrity: sha512-FRBphaehZ5tLdLcQ8g2WOIRE+Y7BCfWi5Zyd8bCvBjiW8TxxAyoWZIxS661Yz6TGPqFQ4VLzOF89WEYhfynSFQ==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -3961,6 +4028,10 @@ packages:
 
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
+
+  web-streams-polyfill@3.3.3:
+    resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
+    engines: {node: '>= 8'}
 
   web-streams-polyfill@4.0.0-beta.3:
     resolution: {integrity: sha512-QW95TCTaHmsYfHDybGMwO5IJIM93I/6vTRk+daHTWFPhwh+C8Cg7j7XyKrwrj8Ib6vYXe0ocYNrmzY4xAAN6ug==}
@@ -4709,7 +4780,7 @@ snapshots:
   '@js-sdsl/ordered-map@4.4.2':
     optional: true
 
-  '@langchain/community@0.3.19(@browserbasehq/sdk@2.0.0(encoding@0.1.13))(@browserbasehq/stagehand@1.6.0(@playwright/test@1.49.1)(deepmerge@4.3.1)(dotenv@16.4.7)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(zod@3.24.1))(@google-cloud/storage@7.14.0(encoding@0.1.13))(@ibm-cloud/watsonx-ai@1.3.0)(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(@pinecone-database/pinecone@4.0.0)(axios@1.7.9)(crypto-js@4.2.0)(encoding@0.1.13)(firebase-admin@13.0.1(encoding@0.1.13))(google-auth-library@9.15.0(encoding@0.1.13))(ibm-cloud-sdk-core@5.1.0)(ignore@5.3.2)(jsonwebtoken@9.0.2)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(pdf-parse@1.1.1)(playwright@1.49.1)':
+  '@langchain/community@0.3.19(@browserbasehq/sdk@2.0.0(encoding@0.1.13))(@browserbasehq/stagehand@1.6.0(@playwright/test@1.49.1)(deepmerge@4.3.1)(dotenv@16.4.7)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(zod@3.24.1))(@google-cloud/storage@7.14.0(encoding@0.1.13))(@ibm-cloud/watsonx-ai@1.3.0)(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(@langchain/groq@0.1.3(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13))(@pinecone-database/pinecone@4.0.0)(axios@1.7.9)(crypto-js@4.2.0)(encoding@0.1.13)(firebase-admin@13.0.1(encoding@0.1.13))(google-auth-library@9.15.0(encoding@0.1.13))(ibm-cloud-sdk-core@5.1.0)(ignore@5.3.2)(jsonwebtoken@9.0.2)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(pdf-parse@1.1.1)(playwright@1.49.1)':
     dependencies:
       '@browserbasehq/stagehand': 1.6.0(@playwright/test@1.49.1)(deepmerge@4.3.1)(dotenv@16.4.7)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))(zod@3.24.1)
       '@ibm-cloud/watsonx-ai': 1.3.0
@@ -4720,7 +4791,7 @@ snapshots:
       flat: 5.0.2
       ibm-cloud-sdk-core: 5.1.0
       js-yaml: 4.1.0
-      langchain: 0.3.7(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(axios@1.7.9)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))
+      langchain: 0.3.7(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(@langchain/groq@0.1.3(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13))(axios@1.7.9)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))
       langsmith: 0.2.13(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))
       openai: 4.76.3(encoding@0.1.13)(zod@3.24.1)
       uuid: 10.0.0
@@ -4794,6 +4865,16 @@ snapshots:
       - encoding
       - supports-color
       - zod
+
+  '@langchain/groq@0.1.3(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)':
+    dependencies:
+      '@langchain/core': 0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))
+      '@langchain/openai': 0.3.14(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)
+      groq-sdk: 0.5.0(encoding@0.1.13)
+      zod: 3.24.1
+      zod-to-json-schema: 3.24.1(zod@3.24.1)
+    transitivePeerDependencies:
+      - encoding
 
   '@langchain/openai@0.3.14(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)':
     dependencies:
@@ -6337,6 +6418,15 @@ snapshots:
       node-domexception: 1.0.0
       web-streams-polyfill: 4.0.0-beta.3
 
+  framer-motion@11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      motion-dom: 11.18.1
+      motion-utils: 11.18.1
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
   fs-minipass@2.1.0:
     dependencies:
       minipass: 3.3.6
@@ -6531,6 +6621,19 @@ snapshots:
   graceful-fs@4.2.11: {}
 
   graphemer@1.4.0: {}
+
+  groq-sdk@0.5.0(encoding@0.1.13):
+    dependencies:
+      '@types/node': 18.19.68
+      '@types/node-fetch': 2.6.12
+      abort-controller: 3.0.0
+      agentkeepalive: 4.5.0
+      form-data-encoder: 1.7.2
+      formdata-node: 4.4.1
+      node-fetch: 2.7.0(encoding@0.1.13)
+      web-streams-polyfill: 3.3.3
+    transitivePeerDependencies:
+      - encoding
 
   gtoken@6.1.2(encoding@0.1.13):
     dependencies:
@@ -6935,7 +7038,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  langchain@0.3.7(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(axios@1.7.9)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)):
+  langchain@0.3.7(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(@langchain/google-vertexai@0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1))(@langchain/groq@0.1.3(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13))(axios@1.7.9)(encoding@0.1.13)(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)):
     dependencies:
       '@langchain/core': 0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1))
       '@langchain/openai': 0.3.14(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)
@@ -6952,6 +7055,7 @@ snapshots:
       zod-to-json-schema: 3.24.1(zod@3.24.1)
     optionalDependencies:
       '@langchain/google-vertexai': 0.1.4(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)(zod@3.24.1)
+      '@langchain/groq': 0.1.3(@langchain/core@0.3.23(openai@4.76.3(encoding@0.1.13)(zod@3.24.1)))(encoding@0.1.13)
       axios: 1.7.9
     transitivePeerDependencies:
       - encoding
@@ -7325,6 +7429,20 @@ snapshots:
   mkdirp@1.0.4:
     optional: true
 
+  motion-dom@11.18.1:
+    dependencies:
+      motion-utils: 11.18.1
+
+  motion-utils@11.18.1: {}
+
+  motion@11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      framer-motion: 11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
   ms@2.1.3: {}
 
   mustache@4.2.0: {}
@@ -7341,6 +7459,11 @@ snapshots:
   nanoid@3.3.8: {}
 
   natural-compare@1.4.0: {}
+
+  next-themes@0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
 
   next@15.1.0(@opentelemetry/api@1.9.0)(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
@@ -7963,6 +8086,11 @@ snapshots:
       snake-case: 3.0.4
       type-fest: 2.19.0
 
+  sonner@2.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
   source-map-js@1.2.1: {}
 
   space-separated-tokens@2.0.2: {}
@@ -8357,6 +8485,8 @@ snapshots:
   warning@4.0.3:
     dependencies:
       loose-envify: 1.4.0
+
+  web-streams-polyfill@3.3.3: {}
 
   web-streams-polyfill@4.0.0-beta.3: {}
 
