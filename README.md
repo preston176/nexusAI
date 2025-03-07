@@ -5,15 +5,19 @@
 </h1>
 
 <h4 align="center">Store and Chat with Your Documents anywhere anytime</h4>
-
+<br />
+<p align="center">
+<a href="https://www.producthunt.com/posts/nexus-ai-3?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nexus&#0045;ai&#0045;3" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=939232&theme=neutral&t=1741334380807" alt="Nexus&#0032;AI - Store&#0032;and&#0032;chat&#0032;with&#0032;your&#0032;documents&#0044;&#0032;all&#0032;in&#0032;one&#0032;place | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+</p>
 
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#Live-preview">Live Link</a> •
+<!--   <a href="#how-to-use">How To Use</a> • -->
+  <a href="https://nexusai-pdf.vercel.app/" target="_blank">Live Link</a> •
+  <a href="https://youtu.be/ABdXAWunyuc" target="_blank">Demo</a> •
   <a href="#disclaimer">Disclaimer</a> •
-  <a href="#related">Related</a> •
+  <a href="#related">Related</a> • 
   <a href="#license">License</a>
 </p>
 
