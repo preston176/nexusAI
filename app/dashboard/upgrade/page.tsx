@@ -118,7 +118,7 @@ function PricingPage() {
                             <ul className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
                                 <li className="flex gap-x-3">
                                     <CheckIcon className="h-6 w-5 flex-none text-blue-600" />
-                                    Store up to 5 Documents at a time.
+                                    Store up to 10 Documents at a time.
                                 </li>
                                 <li className="flex gap-x-3">
                                     <CheckIcon className="h-6 w-5 flex-none text-blue-600" />
