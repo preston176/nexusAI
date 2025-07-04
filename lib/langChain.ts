@@ -15,8 +15,6 @@ import { auth } from "@clerk/nextjs/server";
 // Alternative
 import { ChatGroq } from "@langchain/groq";
 
-
-
 // Initialize Gemini Model
 // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 // const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -35,8 +33,9 @@ import { ChatGroq } from "@langchain/groq";
 
 // GROQ Free
 const model = new ChatGroq({
-  model: "mixtral-8x7b-32768",
-  temperature: 0
+  model: "llama-3.3-70b-versatile",
+  temperature: 0,
+  maxRetries: 2,
 });
 
 export const indexName = "nexus";
@@ -47,7 +46,7 @@ async function fetchMessagesFromDB(docId: string) {
     throw new Error("User not found");
   }
   console.log("---Fetching chat history from firebase db ---");
-  // get the last 6 msg from chat history
+  // get the last msgs from chat history
 
   const chats = await adminDb
     .collection("users")
@@ -177,8 +176,9 @@ export async function generateEmbeddingsInPineconeVectorStore(docId: string) {
 }
 
 const generateLangchainCompletion = async (docId: string, question: string) => {
-
-  const pineconeVectorStore = await generateEmbeddingsInPineconeVectorStore(docId);
+  const pineconeVectorStore = await generateEmbeddingsInPineconeVectorStore(
+    docId
+  );
 
   if (!pineconeVectorStore) {
     throw new Error("Pinecone vector store not found");
@@ -220,7 +220,7 @@ const generateLangchainCompletion = async (docId: string, question: string) => {
   console.log("--- Defining a prompt template for answering questions ... ---");
   const historyAwareRetrievalPrompt = ChatPromptTemplate.fromMessages([
     ["system", "Answer the user's question based on the below context:"],
-    ["system", "{context}"], 
+    ["system", "{context}"],
     ...chatHistory,
     ["user", "{input}"],
   ]);
