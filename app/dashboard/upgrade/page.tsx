@@ -7,7 +7,6 @@ import { CheckIcon } from "lucide-react";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import PaystackPop from '@paystack/inline-js';
 
 export type UserDetails = {
     email?: string;
@@ -32,60 +31,57 @@ function PricingPage() {
         };
 
         startTransition(async () => {
-            // Request initialization on backend to create a Paystack transaction
             if (hasActiveMembership === true) {
                 return;
             }
 
+            const { default: PaystackPop } = await import("@paystack/inline-js");
 
-                const paystack = new PaystackPop();
-                paystack.newTransaction({
-                    key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!, // Your public key
-                    email: userDetails.email!,
-                    amount: 25000, // Amount in kobo
-                    onCancel: () => {
-                        alert("Transaction cancelled");
-                        router.push(`/dashboard?upgrade=false`);
-                    },
-                    onLoad: () => {
-                        // Transaction has loaded
+            const paystack = new PaystackPop();
+            paystack.newTransaction({
+                key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!,
+                email: userDetails.email!,
+                amount: 25000, // Amount in kobo
+                onCancel: () => {
+                    alert("Transaction cancelled");
+                    router.push(`/dashboard?upgrade=false`);
+                },
+                onLoad: () => {
+                    // Transaction UI has loaded
+                },
+                onSuccess: async (transaction) => {
+                    alert(`Payment successful! Verifying transaction...`);
 
-                        // You can parse the transaction object if you need to.
-                    },
-                    onSuccess: async (transaction) => {
-                        alert(`Payment successful! Verifying transaction...`);
-            
-                        try {
-                            const verifyResponse = await fetch("/api/paystack", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    reference: transaction.reference,
-                                    userId: user.id,
-                                }),
-                            });
-            
-                            const result = await verifyResponse.json();
-            
-                            if (result.success) {
-                                alert("Payment verified successfully!");
-                                router.push(`/dashboard?upgrade=true`);
-                            } else {
-                                alert("Payment verification failed!");
-                                router.push(`/dashboard?upgrade=false`);
-                            }
-                        } catch (error) {
-                            alert("Error verifying payment");
-                            console.error(error)
+                    try {
+                        const verifyResponse = await fetch("/api/paystack", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                reference: transaction.reference,
+                                userId: user.id,
+                            }),
+                        });
+
+                        const result = await verifyResponse.json();
+
+                        if (result.success) {
+                            alert("Payment verified successfully!");
+                            router.push(`/dashboard?upgrade=true`);
+                        } else {
+                            alert("Payment verification failed!");
                             router.push(`/dashboard?upgrade=false`);
                         }
-                    },
-                    onError: () => {
-                        alert("An Error occurred!!");
+                    } catch (error) {
+                        alert("Error verifying payment");
+                        console.error(error);
                         router.push(`/dashboard?upgrade=false`);
                     }
-                });
-            
+                },
+                onError: () => {
+                    alert("An Error occurred!!");
+                    router.push(`/dashboard?upgrade=false`);
+                }
+            });
         });
     };
 
@@ -104,7 +100,7 @@ function PricingPage() {
                     </div>
 
                     <p className="mx-auto mt-6 max-w-2xl px-10 text-center text-lg leading-8 text-gray-600">
-                        Select an affordable plan that&apos;s packed with the best features for interacting with your PDFs, enhancing productivity and streamlining your workflow
+                        Select an affordable plan that{"'"}s packed with the best features for interacting with your PDFs, enhancing productivity and streamlining your workflow
                     </p>
                     <div className="max-w-md mx-auto grid grid-cols-1 md:grid-cols-2 md:max-w-2xl gap-8 lg:max-w-4xl">
                         <div className="ring-1 ring-gray-200 p-8 h-fit pb-12 rounded-3xl">
@@ -157,7 +153,7 @@ function PricingPage() {
                             <ul className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
                                 <li className="flex gap-x-3">
                                     <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />
-                                    Store  upto<span className="font-bold">100</span> Documents
+                                    Store up to <span className="font-bold">100</span> Documents
                                 </li>
                                 <li className="flex gap-x-3">
                                     <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />
