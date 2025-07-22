@@ -1,21 +1,72 @@
-# Nexus AI
+<!-- Nexus AI - Landing Section -->
 
-### Secure, Scalable Document Chat Powered by GPT-4o, Gemini, and LangChain
+<h1 align="center">🚀 Nexus AI</h1>
+<p align="center"><em>Secure, Scalable Document Chat Powered by GPT-4o, Giini, and LangChain</em></p>
 
-[![Product Hunt – Nexus AI](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=939232&theme=neutral&t=1741334380807)](https://www.producthunt.com/posts/nexus-ai-3)
+<p align="center">
+  <a href="https://www.producthunt.com/posts/nexus-ai-3" target="_blank">
+    <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=939232&theme=neutral&t=1741334380807" alt="Nexus AI on Product Hunt" style="max-width: 100%;" />
+  </a>
 
-**Live App:** [https://nexusai-pdf.vercel.app](https://nexusai-pdf.vercel.app)  
-**Demo:** [YouTube Walkthrough](https://youtu.be/ABdXAWunyuc)
+<!-- GitHub Repository Badges -->
 
----
+<p align="center">
+  <a href="https://github.com/preston176/nexusAI" target="_blank">
+    <img src="https://img.shields.io/github/stars/preston176/nexusAI?style=social" alt="GitHub stars" />
+  </a>
 
-## Overview
+  <a href="https://github.com/preston176/nexusAI/issues" target="_blank">
+    <img src="https://img.shields.io/github/issues/preston176/nexusAI" alt="GitHub issues" />
+  </a>
+  <a href="https://github.com/preston176/nexusAI" target="_blank">
+    <img src="https://img.shields.io/github/last-commit/preston176/nexusAI" alt="Last commit" />
+  </a>
+</p>
 
-**Nexus AI** is a full-stack web application that enables users to securely upload and interact with documents via conversational AI. It combines modern authentication, cloud storage, vector indexing, and multi-provider LLM orchestration through LangChain.
 
-Use cases include document search, compliance QA, personal knowledge bases, and AI research assistants.
+<!-- Landing Page Preview Section -->
 
----
+<h2 id="landing-page">🌐 Landing Page</h2>
+
+<p align="center">
+  <a href="https://nexusai-pdf.vercel.app" target="_blank">
+    <img src="/public/demo.png" alt="Nexus AI Screenshot" style="border-radius: 8px; max-width: 100%; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);" />
+  </a>
+</p>
+
+<div align="center">
+  <a href="https://nexusai-pdf.vercel.app" target="_blank" style="margin-right: 12px;">
+    🌐 <strong>Live App</strong>
+  </a>
+  |
+  <a href="https://youtu.be/ABdXAWunyuc" target="_blank" style="margin-left: 12px;">
+    🎥 <strong>Watch Demo</strong>
+  </a>
+</div>
+
+<!-- Overview Section -->
+
+<h2>📄 Overview</h2>
+
+<div>
+  <strong>Nexus AI</strong> is a full-stack web application that enables users to securely upload and interact with documents via conversational AI.
+  <br><br>
+  It combines:
+  <ul>
+    <li>🔐 Modern Authentication</li>
+    <li>☁️ Cloud Storage</li>
+    <li>🧠 Vector Indexing</li>
+    <li>🤖 Multi-provider LLM orchestration via <strong>LangChain</strong></li>
+  </ul>
+  <br>
+  <strong>Key Use Cases:</strong>
+  <ul>
+    <li>📑 Document Search</li>
+    <li>✅ Compliance QA</li>
+    <li>🧾 Personal Knowledge Base</li>
+    <li>🔍 AI Research Assistant</li>
+  </ul>
+</div>
 
 ## Architecture
 
@@ -124,34 +175,6 @@ AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME="text-embedding-ada-002"
 ```bash
 docker build -t nexusai-pdf .
 docker run -p 3000:3000 --env-file .env nexusai-pdf
-```
-
----
-
-## Data Flow (LangChain + Pinecone)
-
-```mermaid
-sequenceDiagram
-  participant User
-  participant UI
-  participant Backend
-  participant Pinecone
-  participant LangChain
-  participant LLM
-
-  User->>UI: Upload PDF
-  UI->>Backend: Send file (via Clerk session)
-  Backend->>Firebase: Store file
-  Backend->>LangChain: Extract + Embed text
-  LangChain->>Pinecone: Store vector embeddings
-  User->>UI: Ask question
-  UI->>Backend: Submit query
-  Backend->>Pinecone: Perform vector similarity search
-  Pinecone-->>LangChain: Return top-k matches
-  LangChain->>LLM: Construct prompt + context
-  LLM-->>LangChain: Answer
-  LangChain-->>Backend: Response
-  Backend-->>UI: Display output
 ```
 
 ---
