@@ -17,6 +17,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <script src="//code.tidio.co/qhhancpt76pkxaxn1jz28irsb5lcuszf.js" async></script>
+        </head>
         <body
           className="min-h-screen h-screen overflow-hidden flex flex-col"
         >
