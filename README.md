@@ -1,7 +1,7 @@
 <!-- Nexus AI - Landing Section -->
 
 <h1 align="center">🚀 Nexus AI</h1>
-<p align="center"><em>Secure, Scalable Document Chat Powered by GPT-4o, Giini, and LangChain</em></p>
+<p align="center"><em>Secure, Scalable Document Chat Powered by GPT-4o</em></p>
 
 <p align="center">
   <a href="https://www.producthunt.com/posts/nexus-ai-3" target="_blank">
