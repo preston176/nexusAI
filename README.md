@@ -26,7 +26,7 @@
 
 <!-- Landing Page Preview Section -->
 
-<h2 id="landing-page">🌐 Landing Page</h2>
+<h2 id="landing-page">🌐 Screenshot</h2>
 
 <p align="center">
   <a href="https://nexusai-pdf.vercel.app" target="_blank">
