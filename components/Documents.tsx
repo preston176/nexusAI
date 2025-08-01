@@ -24,7 +24,7 @@ async function Documents() {
     return (
         <div className="flex flex-wrap p-5 bg-gray-100 justify-center lg:justify-start rounded-sm gap-5 max-w-7xl mx-auto">
 
-            {documents.length > 0 ? (
+            {documents.length > 0 && (
                 documents.map((doc) => {
                     const { name, downloadURL, size } = doc.data();
                     return (
@@ -37,8 +37,6 @@ async function Documents() {
                         />
                     );
                 })
-            ) : (
-                <PlaceholderDocument />
             )}
           <PlaceholderDocument />
         </div>
