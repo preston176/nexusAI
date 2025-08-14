@@ -2,21 +2,11 @@
 
 import Link from "next/link"
 import { Button } from "./ui/button"
-import {  Loader2Icon, StarIcon } from "lucide-react"
+import { Loader2Icon, StarIcon } from "lucide-react"
 import useSubscription from "@/hooks/useSubscription"
-import { useTransition } from "react"
-
 
 function UpgradeButton() {
     const { hasActiveMembership, loading } = useSubscription();
-    const [isPending, startTransition] = useTransition();
-
-const handleAccount = () => {
-    startTransition(async () => {
-     //  redirect to manage subscription
-    //  router.push
-    })
-}
 
     if (!hasActiveMembership && !loading)
         return (
@@ -35,14 +25,8 @@ const handleAccount = () => {
         )
     }
     return (
-        <Button onClick={handleAccount} disabled={isPending} variant={"default"} className="border-blue-600 bg-blue-600">
-            {
-                isPending ? (
-                    <Loader2Icon />
-                ) : (
-                    <p><span className="font-extrabold">PRO</span> Account</p>
-                )
-            }
+        <Button variant={"default"} className="border-blue-600 bg-blue-600">
+            <p><span className="font-extrabold">PRO</span> Account</p>
         </Button>
     )
 }
