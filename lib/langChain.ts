@@ -1,7 +1,7 @@
 // import { ChatOpenAI } from "@langchain/openai";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { OpenAIEmbeddings } from "@langchain/openai";
+import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { createRetrievalChain } from "langchain/chains/retrieval";
@@ -38,7 +38,7 @@ const model = new ChatGroq({
   maxRetries: 2,
 });
 
-export const indexName = "nexus";
+export const indexName = "nexusai-gemini";
 
 async function fetchMessagesFromDB(docId: string) {
   const { userId } = await auth();
@@ -139,7 +139,10 @@ export async function generateEmbeddingsInPineconeVectorStore(docId: string) {
   // generate embeddings (numerical representations) for the split documents
   console.log("--Generating Embeddings for the split documents... ---");
 
-  const embeddings = new OpenAIEmbeddings();
+  const embeddings = new GoogleGenerativeAIEmbeddings({
+    apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY,
+    modelName: "text-embedding-004",
+  });
 
   const index = await pineconeClient.index(indexName);
   const namespaceAlreadyExists = await namespaceExists(index, docId);
@@ -162,7 +165,11 @@ export async function generateEmbeddingsInPineconeVectorStore(docId: string) {
     console.log(
       `--- Storing the embeddings in namespace ${docId} in the ${indexName} Pinecone vector store ... ---`
     );
+    console.log(
+      `--- Processing ${splitDocs.length} documents (this may take a moment) ---`
+    );
 
+    // Process all documents at once - Gemini can handle large batches efficiently
     pineconeVectorStore = await PineconeStore.fromDocuments(
       splitDocs,
       embeddings,
@@ -170,6 +177,12 @@ export async function generateEmbeddingsInPineconeVectorStore(docId: string) {
         pineconeIndex: index,
         namespace: docId,
       }
+    );
+
+    console.log(`--- Successfully stored all embeddings! ---`);
+
+    console.log(
+      `--- Successfully stored all embeddings in namespace ${docId} ---`
     );
     return pineconeVectorStore;
   }
