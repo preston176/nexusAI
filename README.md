@@ -62,7 +62,7 @@ The system processes uploaded documents by extracting text content, generating v
 
 <p align="center">
   <a href="https://nexusai-pdf.vercel.app" target="_blank">
-    <img src="/public/demo.png" alt="Nexus AI Application Interface" style="border-radius: 8px; max-width: 100%; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);" />
+    <img src="./public/demo.png" alt="Nexus AI Application Interface" style="border-radius: 8px; max-width: 100%; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);" />
   </a>
 </p>
 
@@ -174,6 +174,146 @@ graph TB
 8. **Generation**: Language model generates answer using retrieved context
 9. **Response**: Answer returned to user with source attribution
 
+### Document Processing Pipeline
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant NextJS as Next.js App
+    participant Firebase as Firebase Storage
+    participant Parser as PDF Parser
+    participant Embedder as Embedding Engine
+    participant Pinecone as Pinecone DB
+
+    User->>NextJS: Upload PDF Document
+    NextJS->>Firebase: Store Original PDF
+    Firebase-->>NextJS: Return Storage URL
+
+    NextJS->>Parser: Extract Text Content
+    Parser->>Parser: Split into Chunks<br/>(1000 tokens per chunk)
+    Parser-->>NextJS: Return Text Chunks
+
+    loop For Each Chunk
+        NextJS->>Embedder: Generate Vector Embedding
+        Embedder-->>NextJS: Return 1536-dim Vector
+        NextJS->>Pinecone: Store Vector + Metadata
+        Pinecone-->>NextJS: Confirm Storage
+    end
+
+    NextJS-->>User: Document Ready for Queries
+```
+
+### Query Processing Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant NextJS as Next.js App
+    participant Embedder as Embedding Engine
+    participant Pinecone as Pinecone DB
+    participant LLM as Language Model
+
+    User->>NextJS: Ask Question
+    NextJS->>Embedder: Generate Query Embedding
+    Embedder-->>NextJS: Return Query Vector
+
+    NextJS->>Pinecone: Similarity Search<br/>(top 4 matches)
+    Pinecone-->>NextJS: Return Relevant Chunks
+
+    NextJS->>NextJS: Build Context Prompt<br/>(Question + Chunks)
+    NextJS->>LLM: Send Augmented Prompt
+    LLM-->>NextJS: Generate Answer
+
+    NextJS-->>User: Display Answer + Sources
+```
+
+### Authentication Flow
+
+```mermaid
+flowchart LR
+    A[User Visits Site] --> B{Authenticated?}
+    B -->|No| C[Clerk Login Page]
+    C --> D{Login Method}
+    D -->|Email/Password| E[Credentials Auth]
+    D -->|OAuth| F[Google/GitHub Auth]
+    D -->|Magic Link| G[Email Link Auth]
+
+    E --> H[Create Session]
+    F --> H
+    G --> H
+
+    B -->|Yes| I[Dashboard Access]
+    H --> I
+
+    I --> J{Check Subscription}
+    J -->|Free Tier| K[Limited Features]
+    J -->|Premium| L[Full Access]
+
+    K --> M[Upload Documents]
+    L --> M
+    M --> N[Chat with Documents]
+```
+
+### Subscription Lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Free: User Signs Up
+
+    Free --> InitiateUpgrade: Click Upgrade
+    InitiateUpgrade --> PaystackCheckout: Redirect to Payment
+    PaystackCheckout --> ProcessingPayment: Enter Card Details
+
+    ProcessingPayment --> Premium: Payment Success
+    ProcessingPayment --> Free: Payment Failed
+
+    Premium --> PremiumActive: Monthly Renewal
+    PremiumActive --> Premium: Auto-Renewal Success
+    PremiumActive --> Expired: Payment Failed
+
+    Expired --> Free: Grace Period Ended
+    Expired --> Premium: Manual Renewal
+
+    Premium --> Cancelled: User Cancels
+    Cancelled --> Free: Subscription Ends
+
+    Free --> [*]: User Deletes Account
+    Premium --> [*]: User Deletes Account
+```
+
+### Vector Similarity Search
+
+```mermaid
+graph TD
+    A["User Query:<br/>'What is machine learning?'"] --> B[Embedding Engine]
+    B --> C["Query Vector:<br/>[-0.02, 0.15, ..., 0.08]"]
+
+    C --> D[Pinecone Index Search]
+
+    subgraph DocumentVectors["Document Vectors"]
+        E1[Chunk 1: 0.92 similarity]
+        E2[Chunk 2: 0.87 similarity]
+        E3[Chunk 3: 0.79 similarity]
+        E4[Chunk 4: 0.73 similarity]
+        E5[Chunk 5: 0.45 similarity]
+    end
+
+    D --> E1
+    D --> E2
+    D --> E3
+    D --> E4
+    D --> E5
+
+    E1 --> F[Top 4 Results]
+    E2 --> F
+    E3 --> F
+    E4 --> F
+
+    F --> G[Context Assembled]
+    G --> H[LLM Prompt]
+    H --> I["Generated Answer with<br/>Source Attribution"]
+```
+
 ---
 
 ## Technology Stack
@@ -194,6 +334,65 @@ graph TB
 | **Payments**        | Paystack               | Payment gateway optimized for African markets          |
 | **Deployment**      | Vercel                 | Edge network deployment with automatic scaling         |
 |                     | Docker                 | Containerization for consistent environments           |
+
+### System Architecture Layers
+
+```mermaid
+graph TB
+    subgraph Presentation["Presentation Layer"]
+        UI[React Components<br/>TailwindCSS Styling]
+        Router[Next.js App Router]
+    end
+
+    subgraph Application["Application Layer"]
+        ServerActions[Server Actions<br/>askQuestion, generateEmbeddings]
+        APIRoutes[API Routes<br/>Webhooks, Payments]
+        Middleware[Clerk Middleware<br/>Auth Protection]
+    end
+
+    subgraph Business["Business Logic Layer"]
+        RAG[RAG Pipeline<br/>LangChain Orchestration]
+        EmbedGen[Embedding Generation<br/>Text Vectorization]
+        DocProc[Document Processing<br/>PDF Parsing & Chunking]
+    end
+
+    subgraph Integration["Integration Layer"]
+        LLMProviders[LLM Providers<br/>OpenAI, Gemini, Groq]
+        VectorDB[Pinecone Client<br/>Vector Operations]
+        Storage[Firebase SDK<br/>Storage Operations]
+        Auth[Clerk SDK<br/>Auth Operations]
+        Payment[Paystack SDK<br/>Payment Operations]
+    end
+
+    subgraph External["External Services"]
+        OpenAI[OpenAI API]
+        Gemini[Gemini API]
+        PineconeDB[(Pinecone Database)]
+        FirebaseStore[(Firebase Storage)]
+        ClerkAuth[Clerk Service]
+        PaystackAPI[Paystack API]
+    end
+
+    UI --> ServerActions
+    Router --> Middleware
+    ServerActions --> RAG
+    ServerActions --> DocProc
+    APIRoutes --> Payment
+
+    RAG --> EmbedGen
+    RAG --> LLMProviders
+    EmbedGen --> VectorDB
+    DocProc --> Storage
+
+    LLMProviders --> OpenAI
+    LLMProviders --> Gemini
+    VectorDB --> PineconeDB
+    Storage --> FirebaseStore
+    Auth --> ClerkAuth
+    Payment --> PaystackAPI
+
+    Middleware --> Auth
+```
 
 ---
 
@@ -421,6 +620,104 @@ nexusAI/
 ├── firebaseAdmin.ts          # Firebase Admin SDK
 ├── middleware.ts             # Clerk authentication middleware
 └── next.config.ts            # Next.js configuration
+```
+
+### Component Interaction Diagram
+
+```mermaid
+graph TB
+    subgraph ClientComponents["Client Components"]
+        FileUploader[FileUploader.tsx<br/>Document Upload UI]
+        Documents[Documents.tsx<br/>Document List Display]
+        Document[Document.tsx<br/>Individual Document Card]
+        Chat[Chat.tsx<br/>Question Input & History]
+        ChatMessage[ChatMessage.tsx<br/>Message Bubble Display]
+        PdfView[PdfView.tsx<br/>PDF Viewer Iframe]
+    end
+
+    subgraph ServerActions["Server Actions"]
+        GenerateEmbeddings[generateEmbeddings<br/>Process & Index Document]
+        AskQuestion[askQuestion<br/>Query Processing]
+        DeleteDocument[deleteDocument<br/>Remove Document]
+    end
+
+    subgraph ExternalServices["External Services"]
+        FirebaseStorage[(Firebase Storage)]
+        PineconeDB[(Pinecone DB)]
+        LLM[Language Models]
+    end
+
+    FileUploader -->|Upload File| GenerateEmbeddings
+    GenerateEmbeddings -->|Store File| FirebaseStorage
+    GenerateEmbeddings -->|Index Vectors| PineconeDB
+
+    Documents -->|Display List| Document
+    Document -->|View Document| PdfView
+    Document -->|Delete| DeleteDocument
+
+    DeleteDocument -->|Remove File| FirebaseStorage
+    DeleteDocument -->|Delete Vectors| PineconeDB
+
+    Chat -->|Submit Question| AskQuestion
+    AskQuestion -->|Search Vectors| PineconeDB
+    AskQuestion -->|Generate Answer| LLM
+    AskQuestion -->|Return Response| ChatMessage
+
+    PdfView -->|Open Chat| Chat
+```
+
+### Data Model Relationships
+
+```mermaid
+erDiagram
+    USER ||--o{ DOCUMENT : uploads
+    USER ||--o| SUBSCRIPTION : has
+    DOCUMENT ||--o{ VECTOR_CHUNK : contains
+    DOCUMENT ||--o{ CHAT_MESSAGE : generates
+
+    USER {
+        string userId PK
+        string email
+        string name
+        timestamp createdAt
+    }
+
+    SUBSCRIPTION {
+        string userId PK
+        string tier
+        timestamp startDate
+        timestamp endDate
+        boolean isActive
+    }
+
+    DOCUMENT {
+        string documentId PK
+        string userId FK
+        string fileName
+        string storageUrl
+        number fileSize
+        timestamp uploadedAt
+        string status
+    }
+
+    VECTOR_CHUNK {
+        string chunkId PK
+        string documentId FK
+        string textContent
+        array embedding
+        number chunkIndex
+        object metadata
+    }
+
+    CHAT_MESSAGE {
+        string messageId PK
+        string documentId FK
+        string userId FK
+        string question
+        string answer
+        array sources
+        timestamp createdAt
+    }
 ```
 
 ---
